@@ -1,0 +1,62 @@
+{
+  "name": "fast-electron-screenshots",
+  "version": "0.5.29",
+  "description": "electron 截图插件",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.js",
+  "files": [
+    "lib/**"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "start": "cross-env DEBUG=fast-electron-screenshots electron lib/demo.js",
+    "dev": "tsc --sourceMap --watch",
+    "build": "npm run lint && npm run clean && tsc",
+    "lint": "eslint . --ext .js,.ts --fix",
+    "clean": "rimraf lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nashaofu/screenshots.git"
+  },
+  "keywords": [
+    "electron",
+    "shortcut",
+    "screenshot",
+    "cropper"
+  ],
+  "author": "nashaofu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nashaofu/screenshots/issues"
+  },
+  "homepage": "https://github.com/nashaofu/screenshots/tree/master/packages/fast-electron-screenshots#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "debug": "^4.4.3",
+    "fs-extra": "^11.3.2",
+    "node-screenshots": "^0.2.1",
+    "fast-react-screenshots": "^0.5.23"
+  },
+  "peerDependencies": {
+    "electron": ">=14"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^18.19.130",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "cross-env": "^7.0.3",
+    "electron": "^23.3.13",
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "rimraf": "^4.4.1",
+    "typescript": "^5.9.3"
+  }
+}

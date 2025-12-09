@@ -4,7 +4,7 @@
 
 在线示例：[https://nashaofu.github.io/screenshots/](https://nashaofu.github.io/screenshots/)
 
-![react-screenshots](./screenshot.jpg)
+![fast-react-screenshots](./screenshot.jpg)
 
 ## 特性
 
@@ -13,18 +13,27 @@
 - 多语言支持
 - 截图操作：马赛克、文本、画笔、箭头、椭圆、矩形
 
-## electron-screenshots
+## 开发
 
-[electron-screenshots](./packages/electron-screenshots/README.md)是`screenshots`的一个子项目，提供了与`electron`截图相关的功能。
+```bash
+corepack enable
+corepack use pnpm@7.33.6
+pnpm install
+pnpm dev
+```
+
+## fast-electron-screenshots
+
+[fast-electron-screenshots](./packages/fast-electron-screenshots/README.md)是`screenshots`的一个子项目，提供了与`electron`截图相关的功能。
 
 ### 安装
 
-[![NPM](https://nodei.co/npm/electron-screenshots.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/electron-screenshots/)
+[![NPM](https://nodei.co/npm/fast-electron-screenshots.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/fast-electron-screenshots/)
 
-## react-screenshots
+## fast-react-screenshots
 
-[react-screenshots](./packages/react-screenshots/README.md)是`screenshots`的另一个子项目，提供了与`react`相关的截图界面插件，可以与`electron-screenshots`渲染进程界面配合使用，当然也可以单独使用。
+[fast-react-screenshots](./packages/fast-react-screenshots/README.md)是`screenshots`的另一个子项目，提供了与`react`相关的截图界面插件，可以与`fast-electron-screenshots`渲染进程界面配合使用，当然也可以单独使用。
 
 ### 安装
 
-[![NPM](https://nodei.co/npm/react-screenshots.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-screenshots/)
+[![NPM](https://nodei.co/npm/fast-react-screenshots.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/fast-react-screenshots/)

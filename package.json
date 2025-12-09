@@ -4,19 +4,15 @@
   "engines": {
     "node": ">=14"
   },
-  "packageManager": "yarn@1.22.17",
+  "packageManager": "pnpm@7.33.7",
   "scripts": {
-    "preinstall": "npx only-allow yarn",
-    "install": "npm run bootstrap",
-    "bootstrap": "lerna bootstrap",
-    "dev": "lerna run dev --parallel",
-    "start": "lerna run start --parallel",
-    "build": "lerna run build",
-    "clean": "lerna clean --yes",
-    "release": "lerna publish",
-    "alpha": "lerna publish --dist-tag alpha"
-  },
-  "devDependencies": {
-    "lerna": "^6.6.1"
+    "preinstall": "node ./scripts/enforce-pnpm.js",
+    "bootstrap": "pnpm install",
+    "dev": "pnpm -r run dev --parallel",
+    "start": "pnpm -r run start --parallel",
+    "build": "pnpm -r run build",
+    "clean": "pnpm -r run clean",
+    "release": "pnpm publish -r --no-git-checks",
+    "alpha": "pnpm publish -r --tag alpha"
   }
 }

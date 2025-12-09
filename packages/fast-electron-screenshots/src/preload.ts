@@ -1,0 +1,93 @@
+/* eslint-disable no-console */
+import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { Display } from './getDisplay';
+
+type IpcRendererListener = (
+  event: IpcRendererEvent,
+  ...args: unknown[]
+) => void;
+type ScreenshotsListener = (...args: unknown[]) => void;
+
+export interface Bounds {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ScreenshotsData {
+  bounds: Bounds;
+  display: Display;
+}
+
+const map = new Map<ScreenshotsListener, Record<string, IpcRendererListener>>();
+
+contextBridge.exposeInMainWorld('screenshots', {
+  ready: () => {
+    console.log('contextBridge ready');
+
+    ipcRenderer.send('SCREENSHOTS:ready');
+  },
+  reset: () => {
+    console.log('contextBridge reset');
+
+    ipcRenderer.send('SCREENSHOTS:reset');
+  },
+  save: (arrayBuffer: ArrayBufferLike, data: ScreenshotsData) => {
+    console.log('contextBridge save', arrayBuffer, data);
+
+    ipcRenderer.send('SCREENSHOTS:save', Buffer.from(arrayBuffer), data);
+  },
+  cancel: () => {
+    console.log('contextBridge cancel');
+
+    ipcRenderer.send('SCREENSHOTS:cancel');
+  },
+  ok: (arrayBuffer: ArrayBufferLike, data: ScreenshotsData) => {
+    console.log('contextBridge ok', arrayBuffer, data);
+
+    ipcRenderer.send('SCREENSHOTS:ok', Buffer.from(arrayBuffer), data);
+  },
+  on: (channel: string, fn: ScreenshotsListener) => {
+    console.log('contextBridge on', fn);
+
+    const listener = (event: IpcRendererEvent, ...args: unknown[]) => {
+      console.log('contextBridge on', channel, fn, ...args);
+      if (channel === 'capture' && args.length === 1) {
+        const [{ display, image }] = args as [
+          {
+            display: Display;
+            image: {
+              buffer: ArrayBufferLike;
+              byteOffset: number;
+              byteLength: number;
+            };
+          },
+        ];
+        fn(display, image);
+        return;
+      }
+
+      fn(...args);
+    };
+
+    const listeners = map.get(fn) ?? {};
+    listeners[channel] = listener;
+    map.set(fn, listeners);
+
+    ipcRenderer.on(`SCREENSHOTS:${channel}`, listener);
+  },
+  off: (channel: string, fn: ScreenshotsListener) => {
+    console.log('contextBridge off', fn);
+
+    const listeners = map.get(fn) ?? {};
+    const listener = listeners[channel];
+    delete listeners[channel];
+
+    if (!listener) {
+      return;
+    }
+
+    ipcRenderer.off(`SCREENSHOTS:${channel}`, listener);
+  },
+});

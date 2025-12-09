@@ -4,10 +4,10 @@
       "path": "."
     },
     {
-      "path": "packages/electron-screenshots"
+      "path": "packages/fast-electron-screenshots"
     },
     {
-      "path": "packages/react-screenshots"
+      "path": "packages/fast-react-screenshots"
     }
   ],
   "settings": {}
